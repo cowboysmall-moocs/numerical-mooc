@@ -1,0 +1,14 @@
+**/.DS_STORE
+**/.RData
+
+**/*.dat
+**/*.mp4
+**/*.pyc
+**/*.py[cod]
+
+**/*.zip
+
+*.egg
+*.egg-info
+eggs
+develop-eggs
