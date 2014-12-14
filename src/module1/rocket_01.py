@@ -8,8 +8,8 @@ from plot import plot_single, plot_multiple, plot_error
 
 
 def print_results(results, index1, index2, index3):
-    print
-    print results[0:11, ]
+    # print
+    # print results[0:11, ]
     print 
     print ' maximum velocity: %0.2f' % (results[index1, 2])
     print '             time: %0.2f' % (results[index1, 0])
@@ -44,25 +44,29 @@ def main(argv):
 
     for n in xrange(count - 1):
         if n * delta < 5.0:
-            m_pdot = 20.0
-            m_p    = m_po - (m_pdot * n * delta)
+            m_p_dot = 20.0
+            m_p     = m_po - (m_p_dot * n * delta)
         else:
-            m_pdot = 0.0
-            m_p    = 0.0
+            m_p_dot = 0.0
+            m_p     = 0.0
 
-        u[n + 1] = u[n] + delta * (-g + ((m_pdot * v_e) - (0.5 * rho * u[n] * np.abs(u[n]) * A * C_d)) / (m_s + m_p))
-        h[n + 1] = h[n] + delta * u[n]
+        h_n = u[n]
+        v_n = -g + ((m_p_dot * v_e) - (0.5 * rho * u[n] * np.abs(u[n]) * A * C_d)) / (m_s + m_p)
 
-    numerical_result = np.column_stack((steps, h, u))
+        h[n + 1] = h[n] + delta * h_n
+        u[n + 1] = u[n] + delta * v_n
 
-    altitude = numerical_result[:, 1]
-    velocity = numerical_result[:, 2]
 
-    idx_1 = np.argmax(velocity)
-    idx_2 = np.argmax(altitude)
-    idx_3 = np.where(altitude < 0.0)[0][0]
+    results  = np.column_stack((steps, h, u))
 
-    print_results(numerical_result, idx_1, idx_2, idx_3)
+    altitude = results[:, 1]
+    velocity = results[:, 2]
+
+    index1   = np.argmax(velocity)
+    index2   = np.argmax(altitude)
+    index3   = np.where(altitude < 0.0)[0][0]
+
+    print_results(results, index1, index2, index3)
 
     # plot_single(steps, altitude, ['Altitude'])
     # plot_single(steps, velocity, ['Velocity'])
