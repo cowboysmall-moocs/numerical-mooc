@@ -1,9 +1,9 @@
 import sys
 
 import numpy as np
-import matplotlib.pyplot as plt
 
 from euler import euler_step, numerical_solution
+from plot import plot_single, plot_multiple, plot_error
 
 
 def rocket_numerical(u, time, m_s = 50.0, rho = 1.091, r = 0.5, g = 9.81, v_e = 325.0, C_d = 0.15, m_po = 100.0):
@@ -39,8 +39,9 @@ def print_results(results, index1, index2, index3):
 def main(argv):
     results  = numerical_solution(40.0, 0.1, rocket_numerical, [0., 0.])
 
-    velocity = results[:, 2]
+    steps    = results[:, 0]
     altitude = results[:, 1]
+    velocity = results[:, 2]
 
     index1   = np.argmax(velocity)
     index2   = np.argmax(altitude)
@@ -48,8 +49,8 @@ def main(argv):
 
     print_results(results, index1, index2, index3)
 
-    # plot_single(steps, altitude, ['Altitude'])
-    # plot_single(steps, velocity, ['Velocity'])
+    plot_single(steps, altitude, ['Altitude'], 'rocket_altitude_02.png')
+    plot_single(steps, velocity, ['Velocity'], 'rocket_velocity_02.png')
 
 
 if __name__ == "__main__":

@@ -1,7 +1,6 @@
 import sys
 
 import numpy as np
-import matplotlib.pyplot as plt
 
 from plot import plot_single, plot_multiple, plot_error
 
@@ -62,8 +61,8 @@ def main(argv):
 
     print_results(results, index1, index2, index3)
 
-    # plot_single(steps, altitude, ['Altitude'])
-    # plot_single(steps, velocity, ['Velocity'])
+    plot_single(steps, altitude, ['Altitude'], 'rocket_altitude_01.png')
+    plot_single(steps, velocity, ['Velocity'], 'rocket_velocity_01.png')
 
 
 if __name__ == "__main__":
