@@ -6,10 +6,7 @@ import matplotlib.pyplot as plt
 from plot import plot_single, plot_multiple, plot_error
 
 
-
 def print_results(results, index1, index2, index3):
-    # print
-    # print results[0:11, ]
     print 
     print ' maximum velocity: %0.2f' % (results[index1, 2])
     print '             time: %0.2f' % (results[index1, 0])
@@ -23,11 +20,7 @@ def print_results(results, index1, index2, index3):
     print
 
 
-
 def main(argv):
-    T     = 40.0
-    delta = 0.1
-
     m_s   = 50.0
     rho   = 1.091
     A     = np.pi * (0.5 ** 2.0)
@@ -36,6 +29,8 @@ def main(argv):
     C_d   = 0.15
     m_po  = 100.0
 
+    T     = 40.0
+    delta = 0.1
     count = int(T / delta) + 1
     steps = np.linspace(0.0, T, count)
 
@@ -56,7 +51,6 @@ def main(argv):
         h[n + 1] = h[n] + delta * h_n
         u[n + 1] = u[n] + delta * v_n
 
-
     results  = np.column_stack((steps, h, u))
 
     altitude = results[:, 1]
@@ -70,7 +64,6 @@ def main(argv):
 
     # plot_single(steps, altitude, ['Altitude'])
     # plot_single(steps, velocity, ['Velocity'])
-
 
 
 if __name__ == "__main__":

@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 from euler import euler_step, numerical_solution
 
 
-
 def rocket_numerical(u, time, m_s = 50.0, rho = 1.091, r = 0.5, g = 9.81, v_e = 325.0, C_d = 0.15, m_po = 100.0):
     A = np.pi * (r ** 2.0)
 
@@ -37,18 +36,17 @@ def print_results(results, index1, index2, index3):
     print
 
 
-
 def main(argv):
-    numerical_result = numerical_solution(40.0, 0.1, rocket_numerical, [0., 0.])
+    results  = numerical_solution(40.0, 0.1, rocket_numerical, [0., 0.])
 
-    velocity = numerical_result[:, 2]
-    altitude = numerical_result[:, 1]
+    velocity = results[:, 2]
+    altitude = results[:, 1]
 
-    idx_1    = np.argmax(velocity)
-    idx_2    = np.argmax(altitude)
-    idx_3    = np.where(altitude < 0.0)[0][0]
+    index1   = np.argmax(velocity)
+    index2   = np.argmax(altitude)
+    index3   = np.where(altitude < 0.0)[0][0]
 
-    print_results(numerical_result, idx_1, idx_2, idx_3)
+    print_results(results, index1, index2, index3)
 
     # plot_single(steps, altitude, ['Altitude'])
     # plot_single(steps, velocity, ['Velocity'])
