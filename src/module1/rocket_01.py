@@ -12,7 +12,7 @@ def main(argv):
 
     m_s   = 50.0
     rho   = 1.091
-    A     = np.pi * (0.5 ** 2)
+    A     = np.pi * (0.5 ** 2.0)
     g     = 9.81
     v_e   = 325.0
     C_d   = 0.15
@@ -25,7 +25,7 @@ def main(argv):
     h     = np.zeros(count)
 
     for n in xrange(count - 1):
-        if n <= 4.99 / delta:
+        if n * delta < 5.0:
             m_pdot = 20.0
             m_p    = m_po - (m_pdot * n * delta)
         else:
@@ -33,7 +33,7 @@ def main(argv):
             m_p    = 0.0
 
         u[n + 1] = u[n] + delta * (-g + ((m_pdot * v_e) - (0.5 * rho * u[n] * np.abs(u[n]) * A * C_d)) / (m_s + m_p))
-        h[n + 1] = h[n] + delta * u[n + 1]
+        h[n + 1] = h[n] + delta * u[n]
 
     numerical_result = np.column_stack((steps, h, u))
 
@@ -42,10 +42,10 @@ def main(argv):
 
     idx_1 = np.argmax(velocity)
     idx_2 = np.argmax(altitude)
-    idx_3 = np.where(altitude < 0.0)[0][0] - 1
+    idx_3 = np.where(altitude < 0.0)[0][0]
 
     print
-    print numerical_result[1:11, ]
+    print numerical_result[0:11, ]
     print 
     print ' maximum velocity: %0.2f' % (numerical_result[idx_1, 2])
     print '             time: %0.2f' % (numerical_result[idx_1, 0])
