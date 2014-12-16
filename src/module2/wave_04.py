@@ -2,7 +2,7 @@ import sys
 
 import numpy as np
 import sympy as sp
-import matplotlib.pyplot as plt                 
+import matplotlib.pyplot as plt
 
 from sympy.utilities.lambdify import lambdify
 from matplotlib import rcParams

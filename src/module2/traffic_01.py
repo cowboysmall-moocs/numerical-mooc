@@ -2,7 +2,7 @@ import sys
 
 import numpy as np
 import sympy as sp
-import matplotlib.pyplot as plt                 
+import matplotlib.pyplot as plt
 
 from matplotlib import rcParams
 
@@ -22,7 +22,8 @@ def traffic_numerical(v_max, rho_max, rho_b, dt, dx, nx, count):
 
     for n in xrange(count):
         rho_n     = rho_0.copy()
-        rho_0[1:] = rho_n[1:] - ((v_max - 2.0 * rho_n[1:] * v_max / rho_max)) * (dt / dx) * (rho_n[1:] - rho_n[0:-1])
+        V         = v_max * (1.0 - (2.0 * rho_n / rho_max))
+        rho_0[1:] = rho_n[1:] - V[1:] * (dt / dx) * (rho_n[1:] - rho_n[0:-1])
         rho_0[0]  = rho_b
 
     return rho_0
@@ -41,14 +42,14 @@ def main(argv):
 
     print
     print '80 km / hr'
-    results = traffic_numerical(v_max, rho_max, 10.0, dt, dx, nx, 1)
+    results = traffic_numerical(v_max, rho_max, 10.0, dt, dx, nx, 0)
     print 'minimum velocity at t = 0 minutes: %0.2f' % np.min(velocities(v_max, rho_max, results))
 
-    nt = int(0.05 / dt) + 1
+    nt = int(0.05 / dt)
     results = traffic_numerical(v_max, rho_max, 10.0, dt, dx, nx, nt)
     print 'average velocity at t = 3 minutes: %0.2f' % np.mean(velocities(v_max, rho_max, results))
 
-    nt = int(0.1 / dt) + 1
+    nt = int(0.1 / dt)
     results = traffic_numerical(v_max, rho_max, 10.0, dt, dx, nx, nt)
     print 'minimum velocity at t = 6 minutes: %0.2f' % np.min(velocities(v_max, rho_max, results))
     print
@@ -58,14 +59,14 @@ def main(argv):
     v_max    = 136.0
 
     print '136 km / hr'
-    results = traffic_numerical(v_max, rho_max, 20.0, dt, dx, nx, 1)
+    results = traffic_numerical(v_max, rho_max, 20.0, dt, dx, nx, 0)
     print 'minimum velocity at t = 0 minutes: %0.2f' % np.min(velocities(v_max, rho_max, results))
 
-    nt = int(0.05 / dt) + 1
+    nt = int(0.05 / dt)
     results = traffic_numerical(v_max, rho_max, 20.0, dt, dx, nx, nt)
     print 'average velocity at t = 3 minutes: %0.2f' % np.mean(velocities(v_max, rho_max, results))
 
-    nt = int(0.05 / dt) + 1
+    nt = int(0.05 / dt)
     results = traffic_numerical(v_max, rho_max, 20.0, dt, dx, nx, nt)
     print 'minimum velocity at t = 3 minutes: %0.2f' % np.min(velocities(v_max, rho_max, results))
     print

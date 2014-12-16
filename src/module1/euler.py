@@ -17,8 +17,3 @@ def numerical_solution(duration, delta, f, initial, **params):
 
 def euler_step(u, delta, f, time, **params):
     return u + delta * f(u, time, **params)
-
-
-
-def get_error(numeric, analytic, delta):
-    return delta * np.sum(np.abs(numeric - analytic))
