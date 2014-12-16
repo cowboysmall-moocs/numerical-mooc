@@ -2,8 +2,8 @@ import sys
 
 import numpy as np
 
-from euler import euler_step, numerical_solution
-from plot import plot_single, plot_multiple, plot_error
+from euler import numerical_solution
+from plot import plot_single
 
 
 def rocket_numerical(u, time, m_s = 50.0, rho = 1.091, r = 0.5, g = 9.81, v_e = 325.0, C_d = 0.15, m_po = 100.0):

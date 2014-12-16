@@ -2,7 +2,7 @@ import sys
 
 import numpy as np
 
-from plot import plot_single, plot_multiple, plot_error
+from plot import plot_single
 
 
 def print_results(results, index1, index2, index3):
