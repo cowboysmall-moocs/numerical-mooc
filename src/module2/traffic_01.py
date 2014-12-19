@@ -20,9 +20,8 @@ def traffic_numerical(v_max, rho_max, rho_b, dt, dx, nx, count):
     rho_0[10:20] = 50.0
 
     for n in xrange(count):
-        rho_n     = rho_0.copy()
-        V         = v_max * (1.0 - (2.0 * rho_n / rho_max))
-        rho_0[1:] = rho_n[1:] - V[1:] * (dt / dx) * (rho_n[1:] - rho_n[0:-1])
+        V         = v_max * (1.0 - (2.0 * rho_0 / rho_max))
+        rho_0[1:] = rho_0[1:] - V[1:] * (dt / dx) * (rho_0[1:] - rho_0[0:-1])
         rho_0[0]  = rho_b
 
     return rho_0
