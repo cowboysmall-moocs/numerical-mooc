@@ -41,13 +41,13 @@ def main(argv):
     u[:, mid:] = computeU(0.125, 0, 10000.0, gamma)
 
     un    = np.ones((3, nx))
-    un_p  = np.ones((3, nx))
-    un_m  = np.ones((3, nx))
+    un_h  = np.ones((3, nx))
 
     for i in xrange(nt):
-        un_p[:, :-1] = 0.5 * (u[:, 1:] + u[:, :-1]) - (dt / (2 * dx)) * (computeF(u[:, 1:], gamma) - computeF(u[:, :-1], gamma))
-        un_m[:, 1:]  = un_p[:, :-1]
-        un[:, 1:-1]  = u[:, 1:-1] - (dt / dx) * (computeF(un_p[:, 1:-1], gamma) - computeF(un_m[:, 1:-1], gamma))
+        F_1          = computeF(u[:, 1:], gamma) - computeF(u[:, :-1], gamma)
+        un_h[:, :-1] = 0.5 * (u[:, 1:] + u[:, :-1]) - ((dt / (2 * dx)) * F_1)
+        F_2          = computeF(un_h[:, 1:-1], gamma) - computeF(un_h[:, :-2], gamma)
+        un[:, 1:-1]  = u[:, 1:-1] - ((dt / dx) * F_2)
 
         un[:, 0]     = un[:, 1]
         un[:, -1]    = un[:, -2]
