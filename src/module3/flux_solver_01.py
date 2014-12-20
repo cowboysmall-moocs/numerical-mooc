@@ -11,7 +11,7 @@ def main(argv):
     eq2     = sympy.Eq( 0, u_max * (1 - 2 * A * rho_star - 3 * B * rho_star ** 2) )
     eq3     = sympy.Eq( u_star, u_max * (1 - A * rho_star - B * rho_star ** 2) )
 
-    eq4     = sympy.Eq(eq2.lhs - 3 * eq3.lhs, eq2.rhs - 3 * eq3.rhs)
+    eq4     = sympy.Eq( eq2.lhs - 3 * eq3.lhs, eq2.rhs - 3 * eq3.rhs )
     eq4.simplify()
     eq4.expand()
 
@@ -26,13 +26,13 @@ def main(argv):
     aval    = A_sol.evalf(subs = {u_star: 1.5, u_max: 2.0, rho_max: 15.0} )
     bval    = B_sol.evalf(subs = {rho_max: 15.0, A: aval} )
 
-    rho_sol     = sympy.solve(eq2, rho_star)[0]
-    rho_sol_val = rho_sol.evalf(subs = {u_max: 2.0, A: aval, B: bval} )
+    rho_sol = sympy.solve(eq2, rho_star)[0]
+    rho_val = rho_sol.evalf(subs = {u_max: 2.0, A: aval, B: bval} )
 
     print
-    print '      A: %0.5f' % aval
-    print '      B: %0.5f' % bval
-    print 'rho_max: %0.2f' % (rho_sol_val)
+    print '      A: %10.5f' % aval
+    print '      B: %10.5f' % bval
+    print 'rho_max: %10.5f' % rho_val
     print
 
 
