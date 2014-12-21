@@ -28,10 +28,7 @@ def richtmyer(u, gamma, nx, nt, dx, dt):
         F_2          = computeF(un_p[:, 1:-1], gamma) - computeF(un_m[:, 1:-1], gamma)
         un[:, 1:-1]  = u[:, 1:-1] - ((dt / dx) * F_2)
 
-        # Neumann Boundary Conditions - gradient at each end equal to zero
-        un[:, 0], un[:, -1] = un[:, 1], un[:, -2]
-
-        u = un.copy()
+        u[:, 1:-1]   = un[:, 1:-1].copy()
 
     return u
 

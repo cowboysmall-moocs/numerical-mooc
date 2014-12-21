@@ -63,6 +63,7 @@ def plot_results(data):
         return img,
 
     anim = animation.FuncAnimation(fig, animate, frames = data, interval = 85)
+    # anim.save('./src/module4/images/bacteria_01.mp4')
     plt.show()
 
 
