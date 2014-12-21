@@ -3,11 +3,6 @@ import sys
 import numpy as np
 import matplotlib.pyplot as plt
 
-from matplotlib import rcParams
-
-rcParams['font.family'] = 'serif'
-rcParams['font.size']   = 16
-
 
 def ftcs(T, nt, dt, dx, alpha):
     for n in xrange(nt):  
@@ -46,7 +41,8 @@ def main(argv):
     nt    = 1000
     dt    = sigma * dx * dx / alpha
 
-    x     = np.linspace(0, 1, nx)
+    x     = np.linspace(0, L, nx)
+
     Ti    = np.zeros(nx)
     Ti[0] = 100
 

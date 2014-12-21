@@ -4,11 +4,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from scipy.linalg import solve
-from matplotlib import rcParams
-
-rcParams['font.family'] = 'serif'
-rcParams['font.size']   = 16
-
 
 
 def ftcs(T, nt, alpha, dt, dx, dy):
@@ -58,7 +53,7 @@ def main(argv):
 
     dx    = L / (nx - 1)
     dy    = H / (ny - 1)
-    dt    = sigma * min(dx, dy) ** 2 / alpha
+    dt    = sigma * (min(dx, dy) ** 2) / alpha
 
     x     = np.linspace(0, L, nx)
     y     = np.linspace(0, H, ny)

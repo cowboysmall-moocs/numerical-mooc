@@ -7,21 +7,20 @@ from scipy.linalg import solve
 
 
 def generateMatrix(N, sigma):
-    d         = np.diag(np.ones(N - 2) * (2 + 1.0 / sigma))
-    d[-1, -1] = 1 + 1.0 / sigma
+    d         = 2 * np.diag(np.ones(N - 2) * (1 + 1.0 / sigma))
+    d[-1, -1] = 1 + 2.0 / sigma
     ud        = np.diag(np.ones(N - 3) * -1, 1)
     ld        = np.diag(np.ones(N - 3) * -1, -1)
     return d + ud + ld
 
 
 def generateRHS(T, sigma):
-    b     = np.zeros_like(T)
-    b     = T[1:-1] * 1.0 / sigma
+    b     = T[1:-1] * 2 * (1.0 / sigma - 1) + T[:-2] + T[2:]
     b[0] += T[0]
     return b
 
 
-def implicit_ftcs(T, A, nt, sigma):
+def CrankNicolson(T, A, nt, sigma):
     for t in xrange(nt):
         Tn         = T.copy()
         b          = generateRHS(Tn, sigma)
@@ -42,14 +41,15 @@ def plot(T, x, filename):
     plt.close()
 
 
+
 def main(argv):
     L     = 1.0
     sigma = 0.5
     alpha = 1.22e-3
 
-    nx    = 51
+    nx    = 21
     dx    = L / (nx - 1)
-    nt    = 1000
+    nt    = 10
     dt    = sigma * dx * dx / alpha
 
     x     = np.linspace(0, L, nx)
@@ -60,8 +60,8 @@ def main(argv):
     A     = generateMatrix(nx, sigma)
 
     T     = Ti.copy()
-    T     = implicit_ftcs(T, A, nt, sigma)
-    plot(T, x, 'rod_03.png')
+    T     = CrankNicolson(T, A, nt, sigma)
+    plot(T, x, 'rod_04.png')
 
 
 
