@@ -14,7 +14,7 @@ def gray_scott(U, V, Du, Dv, F, k):
     dt = 0.9 * (dh ** 2) / (4 * max(Du, Dv))
     nt = int(T / dt)
 
-    D  = np.zeros((int(nt / 100) + 1, len(U), len(U)))
+    D  = np.zeros((int(nt / 100) + 1, n, n))
 
     for n in xrange(nt):
         Un  = U.copy()
@@ -71,7 +71,7 @@ def main(argv):
     U       = data['U']
     V       = data['V']
 
-    U, V, D = gray_scott(U, V, 0.00016, 0.00008, 0.035, 0.065)
+    U, V, D = gray_scott(U, V, 0.00016, 0.00008, 0.035, 0.065) # Bacteria 1
 
     # U, V, D = gray_scott(U, V, 0.00014, 0.00006, 0.035, 0.065) # Bacteria 2
     # U, V, D = gray_scott(U, V, 0.00016, 0.00008, 0.060, 0.062) # Coral
