@@ -1,9 +1,9 @@
 import sys
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 from euler import numerical_solution
-from plot import plot_single
 
 
 def rocket_numerical(u, time, m_s = 50.0, rho = 1.091, r = 0.5, g = 9.81, v_e = 325.0, C_d = 0.15, m_po = 100.0):
@@ -34,6 +34,19 @@ def print_results(results, index1, index2, index3):
     print '   time of impact: %0.2f' % (results[index3, 0])
     print '         velocity: %0.2f' % (results[index3, 2])
     print
+
+
+def plot_single(steps, data, legend, filename):
+    plt.clf()
+    plt.figure(figsize = (10, 6), facecolor = 'w')
+    plt.ylim(0, 1.2 * np.max(data))
+    plt.tick_params(axis = 'both', labelsize = 14)
+    plt.xlabel('step', fontsize = 14)
+    plt.ylabel('data', fontsize = 14)
+    plt.plot(steps, data)
+    plt.legend(legend)
+    plt.savefig('./src/module1/images/' + filename, format = 'png')
+    plt.close()
 
 
 def main(argv):

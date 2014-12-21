@@ -35,7 +35,17 @@ def richtmyer(u, gamma, nx, nt, dx, dt):
     return u
 
 
-def plot(steps, data, title, filename):
+def print_results(velocity, pressure, density):
+    print
+    print 'Solution at 2.5m'
+    print
+    print 'Velocity: %0.2f' % (velocity[50])
+    print 'Pressure: %0.2f' % (pressure[50])
+    print ' Density: %0.2f' % (density[50])
+    print
+
+
+def plot_results(steps, data, title, filename):
     plt.clf()
     plt.figure(figsize = (10, 6), facecolor = 'w')
     plt.tick_params(axis = 'both', labelsize = 14)
@@ -52,30 +62,23 @@ def main(argv):
     nt    = int(0.01 / dt)
     gamma = 1.4
 
-    mid   = (nx - 1) * 0.5
-
     x     = np.linspace(-10, 10, nx)
     u     = np.ones((3, nx))
+    mid   = (nx - 1) * 0.5
 
     u[:, :mid] = computeU(1.0, 0, 100000.0, gamma)
     u[:, mid:] = computeU(0.125, 0, 10000.0, gamma)
+    u          = richtmyer(u, gamma, nx, nt, dx, dt)
 
-    u        = richtmyer(u, gamma, nx, nt, dx, dt)
-    velocity = u[1, :] / u[0, :]
-    pressure = (gamma - 1) * (u[2, :] - (0.5 * u[1, :] ** 2) / u[0, :])
-    density  = u[0, :]
+    velocity   = u[1, :] / u[0, :]
+    pressure   = (gamma - 1) * (u[2, :] - (0.5 * u[1, :] ** 2) / u[0, :])
+    density    = u[0, :]
 
-    plot(x, velocity, 'Velocity', 'sods_shock_tube_velocity.png')
-    plot(x, pressure, 'Pressure', 'sods_shock_tube_pressure.png')
-    plot(x, density, 'Density', 'sods_shock_tube_density.png')
+    print_results(velocity, pressure, density)
 
-    print
-    print 'Solution at 2.5m'
-    print
-    print 'Velocity: %0.2f' % (velocity[50])
-    print 'Pressure: %0.2f' % (pressure[50])
-    print ' Density: %0.2f' % (density[50])
-    print
+    plot_results(x, velocity, 'Velocity', 'sst_velocity.png')
+    plot_results(x, pressure, 'Pressure', 'sst_pressure.png')
+    plot_results(x, density, 'Density', 'sst_density.png')
 
 
 if __name__ == "__main__":

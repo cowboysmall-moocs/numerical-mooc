@@ -3,16 +3,9 @@ import sys
 import numpy as np
 import matplotlib.pyplot as plt
 
-from matplotlib import rcParams
-
-rcParams['font.family'] = 'serif'
-rcParams['font.size'] = 16
-
-
 
 def velocities(v_max, rho_max, rhos):
     return [((v_max - rho_c * v_max / rho_max) * 1000.0 / 3600.0) for rho_c in rhos]
-
 
 
 def traffic_numerical(v_max, rho_max, rho_b, dt, dx, nx, count):
@@ -25,7 +18,6 @@ def traffic_numerical(v_max, rho_max, rho_b, dt, dx, nx, count):
         rho_0[0]  = rho_b
 
     return rho_0
-
 
 
 def main(argv):
@@ -51,7 +43,6 @@ def main(argv):
     results = traffic_numerical(v_max, rho_max, 10.0, dt, dx, nx, nt)
     print 'minimum velocity at t = 6 minutes: %0.2f' % np.min(velocities(v_max, rho_max, results))
     print
-
 
 
     v_max    = 136.0
