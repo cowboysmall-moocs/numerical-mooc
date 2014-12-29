@@ -16,11 +16,12 @@ def computeF(u, gamma):
 
 
 def richtmyer(u, gamma, nx, nt, dx, dt):
-    un    = np.ones((3, nx))
-    un_p  = np.ones((3, nx))
-    un_m  = np.ones((3, nx))
+    un_p  = np.zeros((3, nx))
+    un_m  = np.zeros((3, nx))
 
     for i in xrange(nt):
+        un           = u.copy()
+
         F_1          = computeF(u[:, 1:], gamma) - computeF(u[:, :-1], gamma)
         un_p[:, :-1] = 0.5 * (u[:, 1:] + u[:, :-1]) - ((dt / (2 * dx)) * F_1)
         un_m[:, 1:]  = un_p[:, :-1]
@@ -28,7 +29,7 @@ def richtmyer(u, gamma, nx, nt, dx, dt):
         F_2          = computeF(un_p[:, 1:-1], gamma) - computeF(un_m[:, 1:-1], gamma)
         un[:, 1:-1]  = u[:, 1:-1] - ((dt / dx) * F_2)
 
-        u[:, 1:-1]   = un[:, 1:-1].copy()
+        u            = un.copy()
 
     return u
 

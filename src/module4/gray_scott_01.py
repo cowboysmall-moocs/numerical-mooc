@@ -54,16 +54,17 @@ def print_results(out):
     print
 
 
-def plot_results(data):
-    fig = plt.figure(figsize = (8, 5), dpi = 72)
+def plot_results(data, filename):
+    fig = plt.figure(dpi = 72)
+    # fig = plt.figure(figsize = (5, 4), dpi = 72)
     img = plt.imshow(data[0], cmap = cm.RdBu)
 
     def animate(data):
         img.set_array(data)
         return img,
 
-    anim = animation.FuncAnimation(fig, animate, frames = data, interval = 85)
-    # anim.save('./src/module4/images/bacteria_01.mp4')
+    anim = animation.FuncAnimation(fig, animate, frames = data, interval = 85, blit = True)
+    # anim.save('./src/module4/images/' + filename, writer = 'imagemagick', fps = 30)
     plt.show()
 
 
@@ -73,7 +74,6 @@ def main(argv):
     V       = data['V']
 
     U, V, D = gray_scott(U, V, 0.00016, 0.00008, 0.035, 0.065) # Bacteria 1
-
     # U, V, D = gray_scott(U, V, 0.00014, 0.00006, 0.035, 0.065) # Bacteria 2
     # U, V, D = gray_scott(U, V, 0.00016, 0.00008, 0.060, 0.062) # Coral
     # U, V, D = gray_scott(U, V, 0.00019, 0.00005, 0.060, 0.062) # Fingerprint
@@ -86,7 +86,7 @@ def main(argv):
     # U, V, D = gray_scott(U, V, 0.00016, 0.00008, 0.035, 0.060) # Zebrafish
 
     print_results(U[100, ::40])
-    plot_results(D)
+    plot_results(D, 'gray_scott_01.gif')
 
 
 if __name__ == "__main__":
