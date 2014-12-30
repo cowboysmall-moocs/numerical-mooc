@@ -55,7 +55,9 @@ def print_results(out):
 
 
 def plot_results(data, filename):
-    fig = plt.figure(figsize = (576, 360), dpi = 72)
+    fig = plt.figure(dpi = 72)
+    # fig = plt.figure(figsize = (576, 360), dpi = 72)
+    # fig = plt.figure(figsize = (5, 4), dpi = 72)
     img = plt.imshow(data[0], cmap = cm.RdBu)
 
     def animate(data):
@@ -63,7 +65,8 @@ def plot_results(data, filename):
         return img,
 
     anim = animation.FuncAnimation(fig, animate, frames = data, interval = 85)
-    anim.save('./src/module4/images/' + filename, writer = 'imagemagick', fps = 30)
+    # anim = animation.FuncAnimation(fig, animate, frames = data, interval = 85, blit = True)
+    # anim.save('./src/module4/images/' + filename, writer = 'imagemagick', fps = 30)
     plt.show()
 
 
@@ -72,11 +75,10 @@ def main(argv):
     U       = data['U']
     V       = data['V']
 
-    # U, V, D = gray_scott(U, V, 0.00016, 0.00008, 0.035, 0.065) # Bacteria 1
-
+    U, V, D = gray_scott(U, V, 0.00016, 0.00008, 0.035, 0.065) # Bacteria 1
     # U, V, D = gray_scott(U, V, 0.00014, 0.00006, 0.035, 0.065) # Bacteria 2
     # U, V, D = gray_scott(U, V, 0.00016, 0.00008, 0.060, 0.062) # Coral
-    U, V, D = gray_scott(U, V, 0.00019, 0.00005, 0.060, 0.062) # Fingerprint
+    # U, V, D = gray_scott(U, V, 0.00019, 0.00005, 0.060, 0.062) # Fingerprint
     # U, V, D = gray_scott(U, V, 0.00010, 0.00010, 0.018, 0.050) # Spirals
     # U, V, D = gray_scott(U, V, 0.00012, 0.00008, 0.020, 0.050) # Spirals Dense
     # U, V, D = gray_scott(U, V, 0.00010, 0.00016, 0.020, 0.050) # Spirals Fast
@@ -86,7 +88,7 @@ def main(argv):
     # U, V, D = gray_scott(U, V, 0.00016, 0.00008, 0.035, 0.060) # Zebrafish
 
     print_results(U[100, ::40])
-    plot_results(D, 'gray_scott_03.gif')
+    plot_results(D, 'gray_scott_01.gif')
 
 
 if __name__ == "__main__":
