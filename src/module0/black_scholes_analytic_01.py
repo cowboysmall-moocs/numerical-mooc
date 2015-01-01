@@ -23,19 +23,18 @@ def put(S, K, sigma, r, t):
 
 
 def cnorm(x):
-    gamma = 0.2316419
-    k     = 1.0 / (1.0 + x * gamma)
-
-    a1    =  0.319381530
-    a2    = -0.356563782
-    a3    =  1.781477937
-    a4    = -1.821255978
-    a5    =  1.330274429
-
-    N     = math.exp(-(x ** 2) / 2.0) / math.sqrt(2 * math.pi)
-
     if x >= 0:
-        return 1 - N * (a1 * k + a2 * (k ** 2) + a3 * math.pow(k, 3) + a4 * math.pow(k, 4) + a5 * math.pow(k, 5))
+        b0 =  0.2316419
+        b1 =  0.319381530
+        b2 = -0.356563782
+        b3 =  1.781477937
+        b4 = -1.821255978
+        b5 =  1.330274429
+
+        N  = math.exp(-(x ** 2) / 2.0) / math.sqrt(2 * math.pi)
+        t  = 1.0 / (1.0 + b0 * x)
+
+        return 1 - N * (b1 * t + b2 * (t ** 2) + b3 * math.pow(t, 3) + b4 * math.pow(t, 4) + b5 * math.pow(t, 5))
     else:
         return 1 - cnorm(-x)
 
