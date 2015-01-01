@@ -5,10 +5,7 @@ import math
 
 
 def d1(S, K, sigma, r, t):
-    v1 = math.log(S / K)
-    v2 = (r + ((sigma ** 2) / 2.0)) * t
-    v3 = sigma * math.sqrt(t)
-    return (v1 + v2) / v3
+    return (math.log(S / K) + (r + (sigma ** 2) / 2.0) * t) / (sigma * math.sqrt(t))
 
 def d2(S, K, sigma, r, t):
     return d1(S, K, sigma, r, t) - sigma * math.sqrt(t)
@@ -17,19 +14,15 @@ def d2(S, K, sigma, r, t):
 
 
 def call(S, K, sigma, r, t):
-    v1 = d1(S, K, sigma, r, t)
-    v2 = d2(S, K, sigma, r, t)
-    return (S * error_function(v1)) - (K * error_function(v2) / math.exp(r * t))
+    return (S * cnorm(d1(S, K, sigma, r, t))) - (K * cnorm(d2(S, K, sigma, r, t)) * math.exp(-r * t))
 
 def put(S, K, sigma, r, t):
-    v1 = d1(S, K, sigma, r, t)
-    v2 = d2(S, K, sigma, r, t)
-    return (K * error_function(-v2) / math.exp(r * t)) - (S * error_function(-v1))
+    return (K * cnorm(-d2(S, K, sigma, r, t)) * math.exp(-r * t)) - (S * cnorm(-d1(S, K, sigma, r, t)))
 
 
 
 
-def error_function(x):
+def cnorm(x):
     gamma = 0.2316419
     k     = 1.0 / (1.0 + x * gamma)
 
@@ -39,22 +32,21 @@ def error_function(x):
     a4    = -1.821255978
     a5    =  1.330274429
 
-    q     = 1.0 / math.sqrt(2 * math.pi)
-    N     = q / math.exp((x ** 2) / 2.0)
+    N     = math.exp(-(x ** 2) / 2.0) / math.sqrt(2 * math.pi)
 
     if x >= 0:
-        return 1 - N * (a1 * k + a2 * math.pow(k, 2) + a3 * math.pow(k, 3) + a4 * math.pow(k, 4) + a5 * math.pow(k, 5))
+        return 1 - N * (a1 * k + a2 * (k ** 2) + a3 * math.pow(k, 3) + a4 * math.pow(k, 4) + a5 * math.pow(k, 5))
     else:
-        return 1 - error_function(-x)
+        return 1 - cnorm(-x)
 
 
 
 
-def put_call_put(S, K, r, t, c):
-    return K / math.exp(r * t) + c - S
+def pcp_put(S, K, r, t, c):
+    return c + (K * math.exp(-r * t) - S)
 
-def put_call_call(S, K, r, t, p):
-    return S + p - K / math.exp(r * t)
+def pcp_call(S, K, r, t, p):
+    return p - (K * math.exp(-r * t) - S)
 
 
 

@@ -29,10 +29,10 @@ def generateMatrix(M, dt, r, sigma):
     return d + ud + ld
 
 
-def generateRHS(put, M, dt, r, sigma):
-    b      = put[1:-2]
-    b[0]  -= put[0] * computeAlpha(dt, 1, r, sigma)
-    b[-1] -= put[-1] * computeGamma(dt, M - 1, r, sigma)
+def generateRHS(option, M, dt, r, sigma):
+    b      = option[1:-2]
+    b[0]  -= option[0] * computeAlpha(dt, 1, r, sigma)
+    b[-1] -= option[-1] * computeGamma(dt, M - 1, r, sigma)
     return b
 
 
@@ -46,19 +46,19 @@ def generatePut(M, ds, K):
 
 
 
-def implicit(A, put, M, N, dt, r, K, sigma):
+def implicit(A, option, M, N, dt, r, K, sigma):
     sol       = np.zeros((M + 1, N + 1))
-    sol[:, 0] = put.copy()
+    sol[:, 0] = option.copy()
 
     for t in xrange(1, N + 1):
-        b         = generateRHS(put, M, dt, r, sigma)
-        s         = solve(A, b)
+        b            = generateRHS(option, M, dt, r, sigma)
+        s            = solve(A, b)
 
-        put[1:-2] = s.copy()
-        put[0]    = K * np.exp(-r * (N - t) * dt)
-        put[-1]   = 0
+        option[1:-2] = s.copy()
+        option[0]    = K * np.exp(-r * (N - t) * dt)
+        option[-1]   = 0
 
-        sol[:, t] = put.copy()
+        sol[:, t]    = option.copy()
 
     return sol
 
