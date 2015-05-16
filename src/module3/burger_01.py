@@ -45,7 +45,7 @@ def main(argv):
         y = data
 
         line.set_data(x, y)
-        return line,
+        return line
 
     u     = u_initial(nx)
 

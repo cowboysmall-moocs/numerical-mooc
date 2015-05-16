@@ -124,7 +124,7 @@ def main(argv):
         x = np.linspace(0, 4, nx - 1)
         y = data
         line.set_data(x, y)
-        return line,
+        return line
 
 
     rho_n = godunov(rho, nt, dt, dx, rho_max, V_max)

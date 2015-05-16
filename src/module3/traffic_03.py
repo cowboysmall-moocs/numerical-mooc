@@ -96,7 +96,7 @@ def main(argv):
         x = np.linspace(0, 4, nx)
         y = data
         line.set_data(x, y)
-        return line,
+        return line
 
     fig   = plt.figure(facecolor = 'w')
     ax    = plt.axes(xlim = (0, 4), ylim = (-1, 8), xlabel = ('Distance'), ylabel = ('Traffic density'))
