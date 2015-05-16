@@ -10,8 +10,8 @@ def constructMatrix(nx, ny, sigma):
     A = np.zeros(((nx - 2) * (ny - 2), (nx - 2) * (ny - 2)))
 
     row_number = 0
-    for j in xrange(1, ny - 1):
-        for i in xrange(1, nx - 1):
+    for j in range(1, ny - 1):
+        for i in range(1, nx - 1):
             if i == 1 and j == 1:
                 A[row_number, row_number]            = 1 / sigma + 4
                 A[row_number, row_number+1]          = -1
@@ -62,8 +62,8 @@ def generateRHS(nx, ny, sigma, T, T_bc):
     RHS = np.zeros((nx - 2) * (ny - 2))
 
     row_number = 0
-    for j in xrange(1, ny - 1):
-        for i in xrange(1, nx - 1):
+    for j in range(1, ny - 1):
+        for i in range(1, nx - 1):
             if i == 1 and j == 1:
                 RHS[row_number] = T[j, i] * 1 / sigma + 2 * T_bc
             elif i == nx - 2 and j == 1:
@@ -91,8 +91,8 @@ def map_1Dto2D(nx, ny, T_1D, T_bc):
     T = np.zeros((ny, nx))
 
     row_number = 0
-    for j in xrange(1, ny - 1):
-        for i in xrange(1, nx - 1):
+    for j in range(1, ny - 1):
+        for i in range(1, nx - 1):
             T[j, i] = T_1D[row_number]
             row_number += 1
 
@@ -109,7 +109,7 @@ def btcs_2D(T, A, nt, sigma, T_bc, nx, ny, dt):
     j_mid = (np.shape(T)[0]) / 2
     i_mid = (np.shape(T)[1]) / 2
 
-    for t in xrange(nt):
+    for t in range(nt):
         Tn         = T.copy()
         b          = generateRHS(nx, ny, sigma, Tn, T_bc)
         T_interior = solve(A, b)

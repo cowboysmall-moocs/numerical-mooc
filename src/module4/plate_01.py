@@ -11,15 +11,17 @@ def ftcs(T, nt, alpha, dt, dx, dy):
     j_mid = (np.shape(T)[0]) / 2
     i_mid = (np.shape(T)[1]) / 2
     
-    for n in xrange(nt):
-        Tn = T.copy()
-        T[1:-1, 1:-1] = Tn[1:-1, 1:-1] + alpha * (dt / (dy ** 2) * (Tn[2:, 1:-1] - 2 * Tn[1:-1, 1:-1] + Tn[:-2, 1:-1]) + dt / (dx ** 2) * (Tn[1:-1, 2:] - 2 * Tn[1:-1, 1:-1] + Tn[1:-1, :-2]))
+    for n in range(nt):
+        Tn            = T.copy()
+        T_1           = Tn[2:, 1:-1] - 2 * Tn[1:-1, 1:-1] + Tn[:-2, 1:-1]
+        T_2           = Tn[1:-1, 2:] - 2 * Tn[1:-1, 1:-1] + Tn[1:-1, :-2]
+        T[1:-1, 1:-1] = Tn[1:-1, 1:-1] + alpha * (dt / (dy ** 2) * T_1 + dt / (dx ** 2) * T_2)
   
-        T[-1, :] = T[-2, :]
-        T[:, -1] = T[:, -2]
+        T[-1, :]      = T[-2, :]
+        T[:, -1]      = T[:, -2]
         
         if T[j_mid, i_mid] >= 70:
-            print ("Center of plate reached 70C at time {0:.2f}s.".format(dt * n))
+            print ("Center of plate reached 70C at time {0:.2f}s, in time step {1:d}.".format(dt * n, n))
             break
         
     if T[j_mid, i_mid] < 70:

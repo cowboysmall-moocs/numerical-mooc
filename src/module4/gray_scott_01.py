@@ -56,8 +56,6 @@ def print_results(out):
 
 def plot_results(data, filename):
     fig = plt.figure(dpi = 72)
-    # fig = plt.figure(figsize = (576, 360), dpi = 72)
-    # fig = plt.figure(figsize = (5, 4), dpi = 72)
     img = plt.imshow(data[0], cmap = cm.RdBu)
 
     def animate(data):
@@ -65,8 +63,6 @@ def plot_results(data, filename):
         return img,
 
     anim = animation.FuncAnimation(fig, animate, frames = data, interval = 85)
-    # anim = animation.FuncAnimation(fig, animate, frames = data, interval = 85, blit = True)
-    # anim.save('./src/module4/images/' + filename, writer = 'imagemagick', fps = 30)
     plt.show()
 
 

@@ -1,14 +1,11 @@
 import sys
 
-import numpy as np
-import sympy as sp
+import numpy             as np
+import sympy             as sp
 import matplotlib.pyplot as plt
 
 from sympy.utilities.lambdify import lambdify
-from matplotlib import rcParams
 
-rcParams['font.family'] = 'serif'
-rcParams['font.size'] = 16
 
 
 def main(argv):

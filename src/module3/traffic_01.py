@@ -67,7 +67,7 @@ def main(argv):
         line.set_data(x, y)
         return line,
 
-    fig   = plt.figure()
+    fig   = plt.figure(facecolor = 'w')
     ax    = plt.axes(xlim = (0, 4), ylim = (-0.5, 11.5), xlabel = ('Distance'), ylabel = ('Traffic density'))
     line, = ax.plot([],[], color = '#003366', lw = 2)
     anim  = animation.FuncAnimation(fig, animate, frames = rho_n, interval = 50)

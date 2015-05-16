@@ -129,7 +129,7 @@ def main(argv):
 
     rho_n = godunov(rho, nt, dt, dx, rho_max, V_max)
 
-    fig   = plt.figure()
+    fig   = plt.figure(facecolor = 'w')
     ax    = plt.axes(xlim = (0, 4), ylim = (4.5, 11), xlabel = ('Distance'), ylabel = ('Traffic density'))
     line, = ax.plot([],[], color = '#003366', lw = 2)
     anim  = animation.FuncAnimation(fig, animate, frames = rho_n, interval = 50)
@@ -138,7 +138,7 @@ def main(argv):
 
     rho_n = muscl(rho, nt, dt, dx, rho_max, V_max)
 
-    fig   = plt.figure()
+    fig   = plt.figure(facecolor = 'w')
     ax    = plt.axes(xlim = (0, 4), ylim = (4.5, 11), xlabel = ('Distance'), ylabel = ('Traffic density'))
     line, = ax.plot([],[], color = '#003366', lw = 2)
     anim  = animation.FuncAnimation(fig, animate, frames = rho_n, interval = 50)

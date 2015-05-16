@@ -56,7 +56,7 @@ def main(argv):
     e     = 0.5
     un    = maccormack_damped(u, nt, dt, dx, e)
 
-    fig   = plt.figure()
+    fig   = plt.figure(facecolor = 'w')
     ax    = plt.axes(xlim = (0, 4), ylim = (-0.5, 2))
     line, = ax.plot([], [], lw = 2)
     anim  = animation.FuncAnimation(fig, animate, frames = un, interval = 50)
