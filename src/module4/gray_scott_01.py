@@ -54,13 +54,13 @@ def print_results(out):
     print
 
 
-def plot_results(data, filename):
+def plot_results(data):
     fig = plt.figure(dpi = 72)
     img = plt.imshow(data[0], cmap = cm.RdBu)
 
     def animate(data):
         img.set_array(data)
-        return img,
+        return img
 
     anim = animation.FuncAnimation(fig, animate, frames = data, interval = 85)
     plt.show()
@@ -84,7 +84,7 @@ def main(argv):
     # U, V, D = gray_scott(U, V, 0.00016, 0.00008, 0.035, 0.060) # Zebrafish
 
     print_results(U[100, ::40])
-    plot_results(D, 'gray_scott_01.gif')
+    plot_results(D)
 
 
 if __name__ == "__main__":
