@@ -71,7 +71,7 @@ def main(argv):
     U       = data['U']
     V       = data['V']
 
-    U, V, D = gray_scott(U, V, 0.00016, 0.00008, 0.035, 0.065) # Bacteria 1
+    # U, V, D = gray_scott(U, V, 0.00016, 0.00008, 0.035, 0.065) # Bacteria 1
     # U, V, D = gray_scott(U, V, 0.00014, 0.00006, 0.035, 0.065) # Bacteria 2
     # U, V, D = gray_scott(U, V, 0.00016, 0.00008, 0.060, 0.062) # Coral
     # U, V, D = gray_scott(U, V, 0.00019, 0.00005, 0.060, 0.062) # Fingerprint
@@ -81,7 +81,7 @@ def main(argv):
     # U, V, D = gray_scott(U, V, 0.00016, 0.00008, 0.020, 0.055) # Unstable
     # U, V, D = gray_scott(U, V, 0.00016, 0.00008, 0.050, 0.065) # Worms 1
     # U, V, D = gray_scott(U, V, 0.00016, 0.00008, 0.054, 0.063) # Worms 2
-    # U, V, D = gray_scott(U, V, 0.00016, 0.00008, 0.035, 0.060) # Zebrafish
+    U, V, D = gray_scott(U, V, 0.00016, 0.00008, 0.035, 0.060) # Zebrafish
 
     print_results(U[100, ::40])
     plot_results(D)
